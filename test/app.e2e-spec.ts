@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import { Test, TestingModule } from '@nestjs/testing';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
@@ -14,10 +16,13 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  // without .end(done) will be error:
+  // "Jest has detected the following 1 open handle potentially keeping Jest from exiting"
+  it('/ (GET)', (done) => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect('Hello World!')
+      .end(done);
   });
 });
