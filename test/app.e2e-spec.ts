@@ -7,7 +7,7 @@ import * as request from 'supertest';
 import * as mongoose from 'mongoose';
 
 const { MONGO_URI } = process.env;
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'http://localhost:3000/api';
 
 beforeAll(async () => {
   await mongoose.connect(MONGO_URI, { useNewUrlParser: true });

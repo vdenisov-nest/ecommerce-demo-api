@@ -16,9 +16,6 @@ export class UserService {
   }
 
   async create(userDto: RegisterDTO) {
-    // tslint:disable-next-line:no-console
-    console.log('(register) userDto =>', userDto);
-
     const { username } = userDto;
     const user = await this.userModel.findOne({ username });
     if (user) {
@@ -31,9 +28,6 @@ export class UserService {
   }
 
   async findByLogin(userDto: LoginDTO) {
-    // tslint:disable-next-line:no-console
-    console.log('(login) userDto =>', userDto);
-
     const { username, password } = userDto;
     const user = await this.userModel.findOne({ username });
     if (!user) {

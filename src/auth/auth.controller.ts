@@ -7,7 +7,7 @@ import { HttpExceptionFilter } from '../shared/filters';
 import { IPayload } from '../types';
 
 @Controller('auth')
-@UseFilters(new HttpExceptionFilter())
+// @UseFilters(new HttpExceptionFilter())
 export class AuthController {
   constructor(
     private userService: UserService,
