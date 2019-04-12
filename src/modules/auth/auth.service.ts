@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from '../shared/services';
+import { UserService } from '../../shared/services';
 import { sign } from 'jsonwebtoken';
-import { IPayload } from '../shared/types';
+import { IPayload } from '../../shared/types';
 
 const { SECRET_KEY } = process.env;
 

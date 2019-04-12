@@ -1,10 +1,10 @@
 import { Controller, Post, Get, Body, UseGuards, UseFilters } from '@nestjs/common';
-import { UserService } from '../shared/services';
+import { UserService } from '../../shared/services';
 import { LoginDTO, RegisterDTO } from './auth.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { HttpExceptionFilter } from '../shared/filters';
-import { IPayload } from '../shared/types';
+import { HttpExceptionFilter } from '../../shared/filters';
+import { IPayload } from '../../shared/types';
 
 @Controller('auth')
 // @UseFilters(new HttpExceptionFilter())

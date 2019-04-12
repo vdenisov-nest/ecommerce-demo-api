@@ -5,11 +5,13 @@ import { UserSchema } from '../shared/models/user.schema';
 import { HttpExceptionFilter } from './filters';
 import { LoggingInterceptor } from './interceptors';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { ProductSchema } from './models/product.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: 'User', schema: UserSchema },
+      { name: 'Product', schema: ProductSchema },
     ]),
   ],
   providers: [

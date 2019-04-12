@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-import { RegisterDTO, LoginDTO } from 'src/auth/auth.dto';
+import { RegisterDTO, LoginDTO } from 'src/modules/auth/auth.dto';
 import { HttpStatus } from '@nestjs/common';
 
 import * as request from 'supertest';
