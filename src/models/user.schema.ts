@@ -1,7 +1,8 @@
 import * as mongoose from 'mongoose';
+import * as bcrypt from 'bcrypt';
 
-const UserSchema = new mongoose.Schema({
-  name: String,
+export const UserSchema = new mongoose.Schema({
+  username: String,
   password: String,
   isSeller: {
     type: Boolean,
@@ -21,4 +22,21 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-export const UserModel = mongoose.model('User', UserSchema);
+UserSchema.pre('save', async function(next: mongoose.HookNextFunction) {
+  try {
+    // if (!this.isModified('password')) {
+    //   return next();
+    // }
+
+    // tslint:disable-next-line:no-string-literal
+    const hashed = await bcrypt.hash(this['password'], 10);
+    // tslint:disable-next-line:no-string-literal
+    this['password'] = hashed;
+    return next();
+  }
+  catch (err) {
+    return next(err);
+  }
+});
+
+// export const UserModel = mongoose.model('User', UserSchema);

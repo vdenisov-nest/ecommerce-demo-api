@@ -7,14 +7,14 @@ services:
     image: vdenis0v/nest-commerce:intro
     container_name: nest-app
     ports:
-     - 6666:3000
+     - 3000:3000
     links:
-      - mongo-database:link-to-db
+      - mongo:link-to-db
     environment:
       - MONGO_URI=mongodb://root:1234@link-to-db:27017/admin
 
   # Mongo DB
-  mongo-database:
+  mongo:
     image: mongo
     container_name: mongo-database
     restart: always
