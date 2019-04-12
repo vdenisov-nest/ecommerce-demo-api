@@ -1,9 +1,10 @@
 import { Controller, Post, Get, Body, UseGuards, UseFilters } from '@nestjs/common';
-import { UserService } from 'src/shared/services';
+import { UserService } from '../shared/services';
 import { LoginDTO, RegisterDTO } from './auth.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { HttpExceptionFilter } from 'src/shared/filters';
+import { HttpExceptionFilter } from '../shared/filters';
+import { IPayload } from '../types';
 
 @Controller('auth')
 @UseFilters(new HttpExceptionFilter())
@@ -22,7 +23,7 @@ export class AuthController {
   @Post('login')
   async login(@Body() userDto: LoginDTO) {
     const user = await this.userService.findByLogin(userDto);
-    const payload = {
+    const payload: IPayload = {
       username: user.username,
       isSeller: user.isSeller,
     };
@@ -33,7 +34,7 @@ export class AuthController {
   @Post('register')
   async register(@Body() userDto: RegisterDTO) {
     const user = await this.userService.create(userDto);
-    const payload = {
+    const payload: IPayload = {
       username: user.username,
       isSeller: user.isSeller,
     };

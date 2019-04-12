@@ -1,8 +1,8 @@
 import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { IUser } from 'src/types/user.type';
+import { IUser, IPayload } from './../../types';
 import { InjectModel } from '@nestjs/mongoose';
-import { RegisterDTO, LoginDTO } from 'src/auth/auth.dto';
+import { RegisterDTO, LoginDTO } from './../../auth/auth.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
@@ -49,7 +49,7 @@ export class UserService {
     }
   }
 
-  async findByPayload(payload: any) {
+  async findByPayload(payload: IPayload) {
     const { username } = payload;
     return await this.userModel.findOne({ username });
   }

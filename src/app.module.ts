@@ -11,10 +11,7 @@ console.log('MONGO_URI =>', MONGO_URI);
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      MONGO_URI,
-      { useNewUrlParser: true },
-    ),
+    MongooseModule.forRoot(MONGO_URI, { useNewUrlParser: true }),
     SharedModule,
     AuthModule,
   ],

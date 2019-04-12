@@ -1,28 +1,83 @@
 import 'dotenv/config';
 
-import { Test, TestingModule } from '@nestjs/testing';
+import { RegisterDTO, LoginDTO } from 'src/auth/auth.dto';
+import { HttpStatus } from '@nestjs/common';
+
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import * as mongoose from 'mongoose';
 
-describe('AppController (e2e)', () => {
-  let app;
+const { MONGO_URI } = process.env;
+const apiUrl = 'http://localhost:3000';
 
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
+beforeAll(async () => {
+  await mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+  // await mongoose.connection.db.dropDatabase();
+});
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
-  });
+afterAll(async (done) => {
+  await mongoose.disconnect(done);
+});
 
-  // without .end(done) will be error:
-  // "Jest has detected the following 1 open handle potentially keeping Jest from exiting"
-  it('/ (GET)', (done) => {
-    return request(app.getHttpServer())
+describe('(e2e) ROOT', () => {
+  it('should ping', () => {
+    return request(apiUrl)
       .get('/')
       .expect(200)
-      .expect('Hello World!')
-      .end(done);
+      .expect('Hello World!');
+  });
+});
+
+describe('(e2e) AUTH', () => {
+  it('should register', () => {
+    const user: RegisterDTO = {
+      username: 'username',
+      password: 'password',
+    };
+
+    return request(apiUrl)
+      .post('/auth/register')
+      .set('Accept', 'application/json')
+      .send(user)
+      .expect(({ body }) => {
+        expect(body.token).toBeDefined();
+        expect(body.user.username).toEqual('username');
+        expect(body.user.password).toBeUndefined();
+      })
+      .expect(HttpStatus.CREATED);
+  });
+
+  it('should reject duplicate registration', () => {
+    const user: RegisterDTO = {
+      username: 'username',
+      password: 'password',
+    };
+
+    return request(apiUrl)
+      .post('/auth/register')
+      .set('Accept', 'application/json')
+      .send(user)
+      .expect(({ body }) => {
+        expect(body.message).toEqual('User already exists !');
+        expect(body.code).toEqual(HttpStatus.BAD_REQUEST);
+      })
+      .expect(HttpStatus.BAD_REQUEST);
+  });
+
+  it('should login', () => {
+    const user: LoginDTO = {
+      username: 'username',
+      password: 'password',
+    };
+
+    return request(apiUrl)
+      .post('/auth/login')
+      .set('Accept', 'application/json')
+      .send(user)
+      .expect(({ body }) => {
+        expect(body.token).toBeDefined();
+        expect(body.user.username).toEqual('username');
+        expect(body.user.password).toBeUndefined();
+      })
+      .expect(HttpStatus.CREATED);
   });
 });
