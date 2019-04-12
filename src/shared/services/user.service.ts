@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { Model } from 'mongoose';
-import { IUser, IPayload } from './../../types';
+import { IUser, IPayload } from './../../shared/types';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDTO, LoginDTO } from './../../auth/auth.dto';
 import * as bcrypt from 'bcrypt';

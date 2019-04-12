@@ -4,7 +4,7 @@ import { LoginDTO, RegisterDTO } from './auth.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { HttpExceptionFilter } from '../shared/filters';
-import { IPayload } from '../types';
+import { IPayload } from '../shared/types';
 
 @Controller('auth')
 // @UseFilters(new HttpExceptionFilter())

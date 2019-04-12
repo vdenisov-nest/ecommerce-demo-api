@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt, VerifiedCallback } from 'passport-jwt';
 import { AuthService } from './auth.service';
-import { IPayload } from '../types';
+import { IPayload } from '../shared/types';
 
 const { SECRET_KEY } = process.env;
 
