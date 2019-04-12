@@ -16,8 +16,8 @@ export class AuthController {
 
   @Get()
   @UseGuards(AuthGuard('jwt'))
-  tempAuth() {
-    return { auth: 'works' };
+  async findAll() {
+    return await this.userService.findAll();
   }
 
   @Post('login')
