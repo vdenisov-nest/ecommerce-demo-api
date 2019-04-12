@@ -40,11 +40,17 @@ export class UserService {
       throw new UnauthorizedException('Invalid credentials !');
     }
 
-    if (await bcrypt.compare(password, user.password)) {
+    const isPassMatch = await bcrypt.compare(password, user.password);
+
+    if (isPassMatch) {
       return this.sanitizeUser(user);
-    }
-    else {
+    } else {
       throw new UnauthorizedException('Invalid credentials !');
     }
+  }
+
+  async findByPayload(payload: any) {
+    const { username } = payload;
+    return await this.userModel.findOne({ username });
   }
 }
