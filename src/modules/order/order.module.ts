@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ProductController } from './product.controller';
-import { ProductService } from './product.service';
+import { OrderController } from './order.controller';
+import { OrderService } from './order.service';
 import { SharedModule } from 'src/shared/shared.module';
 
 @Module({
@@ -8,10 +8,10 @@ import { SharedModule } from 'src/shared/shared.module';
     SharedModule,
   ],
   controllers: [
-    ProductController,
+    OrderController,
   ],
   providers: [
-    ProductService,
+    OrderService,
   ],
 })
-export class ProductModule {}
+export class OrderModule {}

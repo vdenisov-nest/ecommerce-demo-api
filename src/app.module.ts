@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductModule } from './modules/product/product.module';
+import { OrderModule } from './modules/order/order.module';
 
 const { MONGO_URI } = process.env;
 // tslint:disable-next-line:no-console
@@ -18,6 +19,7 @@ console.log('MONGO_URI =>', MONGO_URI);
     SharedModule,
     AuthModule,
     ProductModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

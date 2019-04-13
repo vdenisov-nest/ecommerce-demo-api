@@ -3,7 +3,7 @@ import { Document } from 'mongoose';
 import { IUser } from './user.type';
 import { IProduct } from './product.type';
 
-interface IProductOrder {
+export interface IProductOrder {
   product: IProduct;
   quantity: number;
 }
